@@ -1,4 +1,5 @@
 import XCTest
+import Logger
 @testable import PurchaseKit
 
 final class PurchaseKitTests: XCTestCase {
@@ -6,7 +7,7 @@ final class PurchaseKitTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertEqual(PurchaseKit().text, "Hello, World!")
+        XCTAssertNotNil(InAppPurchaseManager(inAppPurchaseIdentifiers: [], logger: PrintLogger()))
     }
 
     static var allTests = [
