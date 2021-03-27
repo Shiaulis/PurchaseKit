@@ -7,7 +7,7 @@ final class PurchaseKitTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        XCTAssertNotNil(InAppPurchaseManager(inAppPurchaseIdentifiers: [], logger: PrintLogger()))
+        XCTAssertNotNil(InAppPurchaseManager(inAppPurchaseIdentifiers: [], logger: PrintLogger(moduleName: "test")))
     }
 
     static var allTests = [

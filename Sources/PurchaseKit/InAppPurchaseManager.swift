@@ -21,12 +21,6 @@ public struct Product {
 
 public final class InAppPurchaseManager: NSObject {
 
-    private struct PurchaseLoggerModule: LoggerModule {
-        let name: String = "Purchase 💰"
-    }
-
-    private let loggerModule = PurchaseLoggerModule()
-
     public typealias ProductRequestCompletion = (Result<[Product], Swift.Error>) -> Void
     public typealias ProductPurchaseCompletion = (Swift.Error?) -> Void
 
@@ -83,14 +77,14 @@ extension InAppPurchaseManager: SKProductsRequestDelegate {
         let correctProducts = response.products
 
         if !correctProducts.isEmpty {
-            self.logger.log(information: "Found \(correctProducts.count) available purchases", module: PurchaseLoggerModule())
+            self.logger.log(information: "Found \(correctProducts.count) available purchases")
         }
         else {
-            self.logger.log(information: "Didn't found any available purchases", module: self.loggerModule)
+            self.logger.log(information: "Didn't found any available purchases")
         }
 
         if !incorrectProducts.isEmpty {
-            self.logger.log(information: "Found \(incorrectProducts.count) unavailable purchases", module: self.loggerModule)
+            self.logger.log(information: "Found \(incorrectProducts.count) unavailable purchases")
         }
 
         completion(.success(correctProducts.map { .init(product: $0) }))
@@ -103,11 +97,11 @@ extension InAppPurchaseManager: SKProductsRequestDelegate {
         }
 
         completion(.failure(error))
-        self.logger.log(message: "Failed request product request", error: error, module: self.loggerModule)
+        self.logger.log(message: "Failed request product request", error: error)
     }
 
     public func requestDidFinish(_ request: SKRequest) {
-        self.logger.log(information: "Request product finished", module: self.loggerModule)
+        self.logger.log(information: "Request product finished")
     }
 
 }
