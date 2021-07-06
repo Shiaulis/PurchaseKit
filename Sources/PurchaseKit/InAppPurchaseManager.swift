@@ -6,7 +6,7 @@
 //
 
 import StoreKit
-import Logger
+import OSLog
 
 public struct Product {
     public var localizedTitle: String { self.storeKitProduct.localizedTitle }
@@ -77,14 +77,14 @@ extension InAppPurchaseManager: SKProductsRequestDelegate {
         let correctProducts = response.products
 
         if !correctProducts.isEmpty {
-            self.logger.log(information: "Found \(correctProducts.count) available purchases")
+            self.logger.debug("Found \(correctProducts.count) available purchases")
         }
         else {
-            self.logger.log(information: "Didn't found any available purchases")
+            self.logger.debug("Didn't found any available purchases")
         }
 
         if !incorrectProducts.isEmpty {
-            self.logger.log(information: "Found \(incorrectProducts.count) unavailable purchases")
+            self.logger.debug("Found \(incorrectProducts.count) unavailable purchases")
         }
 
         completion(.success(correctProducts.map { .init(product: $0) }))
@@ -97,11 +97,11 @@ extension InAppPurchaseManager: SKProductsRequestDelegate {
         }
 
         completion(.failure(error))
-        self.logger.log(message: "Failed request product request", error: error)
+        self.logger.error("Failed request product request. Error: \(error.localizedDescription)")
     }
 
     public func requestDidFinish(_ request: SKRequest) {
-        self.logger.log(information: "Request product finished")
+        self.logger.debug("Request product finished")
     }
 
 }
