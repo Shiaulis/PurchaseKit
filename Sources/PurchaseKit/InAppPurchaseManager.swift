@@ -10,7 +10,7 @@ import OSLog
 
 public struct Product {
     public var localizedTitle: String { self.storeKitProduct.localizedTitle }
-    public var localizedPrice: String { self.storeKitProduct.localizedPrice }
+    public var localizedPrice: String? { self.storeKitProduct.localizedPrice }
 
     fileprivate let storeKitProduct: SKProduct
 
@@ -108,11 +108,11 @@ extension InAppPurchaseManager: SKProductsRequestDelegate {
 
 extension SKProduct {
 
-    var localizedPrice: String {
+    var localizedPrice: String? {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.locale = priceLocale
-        return formatter.string(from: price)!
+        return formatter.string(from: price)
     }
 
 }
